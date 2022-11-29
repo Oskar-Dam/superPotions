@@ -27,6 +27,8 @@ const getPotions = async (req, res) => {
 const getPotion = async (req, res) => {
   try {
     const potion = await Potion.findById(req.params.id);
+    console.log(potion)
+    if(!potion) return res.status(404).send([]);
     res.status(200).json(potion);
   } catch (error) {
     res.status(500).json(error);
@@ -45,6 +47,7 @@ const createPotion = async (req, res) => {
     const potion = await Potion.create(req.body);
     res.status(201).json(potion);
   } catch (error) {
+    console.log(error)
     res.status(500).json(error);
   }
 };

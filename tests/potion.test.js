@@ -6,7 +6,7 @@ require("dotenv").config();
 
 /* Connecting to the database before each suite of tests. */
 beforeAll(async () => {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI_TEST);
 });
 
 /* Closing database connection after suite of tests. */
@@ -35,6 +35,11 @@ describe("GET /api/potions/:id", () => {
           })
         expect(res.body.name).toBe("Acetaminophen, diphenhydramine HCl, phenylephrine HCl");
     });
+    it("should return 404 response", async () => {
+        const res = await request(app).get("/api/potions/6377d3c1640633eeff22c241");
+            expect(res.statusCode).toBe(404);
+           
+    });
 });
 
 describe("POST /api/potions", () => {
@@ -61,6 +66,13 @@ describe("POST /api/potions", () => {
         expect(res.body.power).toBe(82);
         expect(res.body.mana).toBe(17);
     });
+    it("should fail creating a new potion with empty object", async () => {
+        const res = await request(app).post("/api/potions").send({
+            
+        });
+        expect(res.statusCode).toBe(500);
+        
+    });
 });
 
 describe("PATCH /api/potions/:id", () => {
@@ -69,11 +81,11 @@ describe("PATCH /api/potions/:id", () => {
             .patch("/api/potions/637dd20a4b5cbb0e2ffb03fc")
             .send({              
                 mana: 99,
-                power: 10
+                power: 11
             });
         expect(res.statusCode).toBe(200);
         expect(res.body.mana).toBe(99);
-        expect(res.body.power).toBe(10);
+        expect(res.body.power).toBe(11);
     });
 });
 

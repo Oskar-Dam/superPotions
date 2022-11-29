@@ -4,9 +4,12 @@ const PORT = process.env.PORT || 5000;
 
 require("dotenv").config();
 
-/* Connecting to the database and then starting the server. */
+const {MONGODB_URI_TEST, MONGODB_URI_PROD, NODE_ENV} = process.env
+
+const connectionString = NODE_ENV === 'test' ? MONGODB_URI_TEST : NODE_ENV === 'development' ? MONGODB_URI_TEST : MONGODB_URI_PROD
+console.log(connectionString)
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(connectionString)
   .then(() => {
     app.listen(PORT, console.log(`Potion server started on port ${PORT}`));
   })
