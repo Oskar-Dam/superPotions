@@ -9,7 +9,7 @@ app.use(express.json());
 
 /* This is the root route. It is used to check if the server is running. */
 app.get("/", (req, res) => {
-  res.status(200).json({ potions: "Free for all." });
+  res.status(200).json({ potions: "Free for All." });
 });
 
 /* Telling the server to use the routes in the PotionRoutes file. */
