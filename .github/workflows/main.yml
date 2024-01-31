@@ -25,4 +25,4 @@ jobs:
       - run: npm install
       - run: npm run build --if-present
       - run: npm start
-      - run: pm2 restart App # add this new line
+      - run: pm2 restart NodeApp # add this new line
