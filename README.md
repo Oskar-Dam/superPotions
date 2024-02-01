@@ -1,5 +1,5 @@
 # superPotions
-Testing endpoints with Supertest and Jest
+Testing endpoints with Supertest and Jest.
 
 
 The full mongodb collection of Potions:
